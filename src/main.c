@@ -107,25 +107,13 @@ int main() {
 
     for (i = 0; i < SIZE_HIGH_RES; ++i) {
         exact_solution[i] = pow(high_res_ordinate[i], 2);
+        approx_solution[i] = approx_result(high_res_ordinate[i], rhs, SIZE);
     }
 
-    printf("# EXACT SOLUTION\n");
+    printf("%3s %20s %20s %20s\n", "#", "ORDINATE", "EXACT SOLUTION", "NUMERICAL SOLUTION");
+    printf("%3s %20s %20s %20s\n", "#", "--------", "--------------", "------------------");
     for (i = 0; i < SIZE_HIGH_RES; ++i) {
-        printf("%12.4e %12.4e\n", high_res_ordinate[i], exact_solution[i]);
-    }
-    printf("\n");
-    printf("# NUMERICAL SOLUTION\n");
-    for (i = 0; i < SIZE_HIGH_RES; ++i) {
-        approx_solution[i] = approx_result(high_res_ordinate[i], rhs, SIZE);
-        printf("%12.4e %12.4e\n", high_res_ordinate[i], approx_solution[i]);
-    }
-    printf("\n");
-    for (i = 0; i < SIZE; ++i) {
-        printf("# CHEBYSHEV POLYNOMIAL WITH n = %d\n", i);
-        for (j = 0; j < SIZE_HIGH_RES; ++j) {
-            printf("%12.4e %12.4e\n", high_res_ordinate[j], rhs[i] * chebyshev_poly_1(i, high_res_ordinate[j], &err));
-        }
-        printf("\n");
+        printf("%3s %20.4e %20.4e %20.4e\n", "   ", high_res_ordinate[i], exact_solution[i], approx_solution[i]);
     }
 
     return 0;
