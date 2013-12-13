@@ -32,6 +32,8 @@ main ()
   double exact_solution[SIZE_HIGH_RES];
   gsl_integration_glfixed_table *integration_table =
     gsl_integration_glfixed_table_alloc (SIZE);
+  FILE *fp;
+  const char filename[] = "solutions.dat";
 
   /* Calculate integration points and weights using Gauss-Legendre rules. */
   for (i = 0; i < SIZE; ++i)
@@ -131,15 +133,26 @@ main ()
       approx_solution[i] = approx_result (high_res_ordinate[i], rhs, SIZE);
     }
 
-  printf ("%3s %20s %20s %20s\n", "#", "ORDINATE", "EXACT SOLUTION",
-	  "NUMERICAL SOLUTION");
-  printf ("%3s %20s %20s %20s\n", "#", "--------", "--------------",
-	  "------------------");
+  /* Write the exact and numerical solutions to a file. */
+  /* TODO: make the file name an adjustable parameter. */
+
+  fp = fopen (filename, "w");
+  if (fp == NULL)
+    {
+      fprintf (stderr, "Can't open file '%s' for writing!\n", filename);
+      return -1;
+    }
+  fprintf (fp, "%3s %20s %20s %20s\n", "#", "ORDINATE", "EXACT SOLUTION",
+	   "NUMERICAL SOLUTION");
+  fprintf (fp, "%3s %20s %20s %20s\n", "#", "--------", "--------------",
+	   "------------------");
   for (i = 0; i < SIZE_HIGH_RES; ++i)
     {
-      printf ("%3s %20.4e %20.4e %20.4e\n", "   ", high_res_ordinate[i],
-	      exact_solution[i], approx_solution[i]);
+      fprintf (fp, "%3s %20.4e %20.4e %20.4e\n", "   ", high_res_ordinate[i],
+	       exact_solution[i], approx_solution[i]);
     }
+  fclose (fp);
+  printf ("Saved numerical solution to file '%s'.\n", filename);
 
   return 0;
 }
