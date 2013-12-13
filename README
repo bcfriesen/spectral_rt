@@ -1,0 +1,27 @@
+This code uses the Galerkin spectral method to solve the ordinary differential
+equation
+
+    f'(x) = 2x
+
+over the domain [0, 1], with the initial condition
+
+    f(0) = 0.
+
+The solution is
+
+    f(x) = x^2.
+
+To compile this code, you need a C compiler and the CMake package. If you have
+those, perform the following, from the top level of the code directory.
+
+mkdir build
+cd build
+cmake ..
+make
+
+The binary will be placed in build/src/test_galerkin_method. To run it, type
+
+./src/test_galerkin_method
+
+The output contains 3 columns: the domain points, the exact solution, and the
+numerical solution.
