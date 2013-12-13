@@ -33,7 +33,7 @@ main ()
   gsl_integration_glfixed_table *integration_table =
     gsl_integration_glfixed_table_alloc (SIZE);
   FILE *fp;
-  const char filename[] = "solutions.dat";
+  const char solutions_filename[] = "solutions.dat";
 
   /* Calculate integration points and weights using Gauss-Legendre rules. */
   for (i = 0; i < SIZE; ++i)
@@ -136,10 +136,10 @@ main ()
   /* Write the exact and numerical solutions to a file. */
   /* TODO: make the file name an adjustable parameter. */
 
-  fp = fopen (filename, "w");
+  fp = fopen (solutions_filename, "w");
   if (fp == NULL)
     {
-      fprintf (stderr, "Can't open file '%s' for writing!\n", filename);
+      fprintf (stderr, "Can't open file '%s' for writing!\n", solutions_filename);
       return -1;
     }
   fprintf (fp, "%3s %20s %20s %20s\n", "#", "ORDINATE", "EXACT SOLUTION",
@@ -152,7 +152,7 @@ main ()
 	       exact_solution[i], approx_solution[i]);
     }
   fclose (fp);
-  printf ("Saved numerical solution to file '%s'.\n", filename);
+  printf ("Saved numerical solution to file '%s'.\n", solutions_filename);
 
   return 0;
 }
