@@ -1,11 +1,15 @@
+#include <assert.h>
+
 #include  <error_codes.h>
 
 double
-chebyshev_poly_1 (const int n, const double x, int *err)
+chebyshev_poly_1 (const int n, const double x)
 {
 
   double T_n, T_nm1, T_nm2;
   int i;
+
+  assert (n >= 0);
 
   if (n == 0)
     {
@@ -15,7 +19,7 @@ chebyshev_poly_1 (const int n, const double x, int *err)
     {
       T_n = x;
     }
-  else if (n > 1)
+  else
     {
       T_nm1 = x;
       T_nm2 = 1.0;
@@ -26,24 +30,18 @@ chebyshev_poly_1 (const int n, const double x, int *err)
 	  T_nm1 = T_n;
 	}
     }
-  else
-    {
-      T_n = 0.0;
-      *err = ENEGNCHEBY;
-    }
-
-  if (n >= 0)
-    *err = SUCCESS;
 
   return (T_n);
 }
 
 double
-chebyshev_poly_2 (const int n, const double x, int *err)
+chebyshev_poly_2 (const int n, const double x)
 {
 
   double U_n, U_nm1, U_nm2;
   int i;
+
+  assert (n >= 0);
 
   if (n == 0)
     {
@@ -53,7 +51,7 @@ chebyshev_poly_2 (const int n, const double x, int *err)
     {
       U_n = 2.0 * x;
     }
-  else if (n > 1)
+  else
     {
       U_nm1 = 2.0 * x;
       U_nm2 = 1.0;
@@ -64,14 +62,6 @@ chebyshev_poly_2 (const int n, const double x, int *err)
 	  U_nm1 = U_n;
 	}
     }
-  else
-    {
-      U_n = 0.0;
-      *err = ENEGNCHEBY;
-    }
-
-  if (n >= 0)
-    *err = SUCCESS;
 
   return (U_n);
 }

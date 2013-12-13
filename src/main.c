@@ -17,7 +17,7 @@ main ()
 {
 
   int i, j, k;
-  int err, err2;
+  int err;
   double rhs[SIZE];
   const double lower_limit = -1.0;
   const double upper_limit = +1.0;
@@ -56,14 +56,7 @@ main ()
   rhs[j] = 0.0;
   for (i = 0; i < SIZE; ++i)
     {
-      matrix[j][i] = chebyshev_poly_1 (i, 0.0, &err);
-      if (err != SUCCESS)
-	{
-	  printf
-	    ("ERROR: Invalid index of Chebyshev polynomial (1st kind): %d\n",
-	     i);
-	  return (-1);
-	}
+      matrix[j][i] = chebyshev_poly_1 (i, 0.0);
     }
 
 
@@ -79,22 +72,8 @@ main ()
 	      total =
 		total + integration_weights[k] * chebyshev_poly_1 (j,
 								   integration_points
-								   [k],
-								   &err) *
-		(double) i *chebyshev_poly_2 (i - 1, integration_points[k],
-					      &err2);
-	      if (err != SUCCESS)
-		{
-		  printf
-		    ("ERROR: Invalid index of Chebyshev polynomial (1st kind): %d\n",
-		     j);
-		}
-	      else if (err2 != SUCCESS)
-		{
-		  printf
-		    ("ERROR: Invalid index of Chebyshev polynomial (2nd kind): %d\n",
-		     i - 1);
-		}
+								   [k]) *
+		(double) i *chebyshev_poly_2 (i - 1, integration_points[k]);
 	    }
 	  matrix[j][i] = total;
 	}
@@ -109,16 +88,8 @@ main ()
 	  total =
 	    total + integration_weights[k] * chebyshev_poly_1 (j,
 							       integration_points
-							       [k],
-							       &err) *
+							       [k]) *
 	    integration_points[k];
-	  if (err != SUCCESS)
-	    {
-	      printf
-		("ERROR: Invalid index of Chebyshev polynomial (1st kind): %d\n",
-		 j);
-	      return (-1);
-	    }
 	}
       rhs[j] = 2.0 * total;
     }
