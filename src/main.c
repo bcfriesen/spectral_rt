@@ -34,6 +34,7 @@ main ()
     gsl_integration_glfixed_table_alloc (SIZE);
   FILE *fp;
   const char solutions_filename[] = "solutions.dat";
+  const char basis_functions_filename[] = "basis_functions.dat";
 
   /* Calculate integration points and weights using Gauss-Legendre rules. */
   for (i = 0; i < SIZE; ++i)
@@ -139,7 +140,8 @@ main ()
   fp = fopen (solutions_filename, "w");
   if (fp == NULL)
     {
-      fprintf (stderr, "Can't open file '%s' for writing!\n", solutions_filename);
+      fprintf (stderr, "Can't open file '%s' for writing!\n",
+	       solutions_filename);
       return -1;
     }
   fprintf (fp, "%3s %20s %20s %20s\n", "#", "ORDINATE", "EXACT SOLUTION",
@@ -153,6 +155,47 @@ main ()
     }
   fclose (fp);
   printf ("Saved numerical solution to file '%s'.\n", solutions_filename);
+
+  /* Write the basis functions to a file. */
+  /* TODO: make the file name an adjustable parameter. */
+
+  fp = fopen (basis_functions_filename, "w");
+  if (fp == NULL)
+    {
+      fprintf (stderr, "Can't open file '%s' for writing!\n",
+	       solutions_filename);
+      return -1;
+    }
+
+  fprintf (fp, "%3s%3s", "#", "");
+  fprintf (fp, "%20s", "x");
+  for (i = 0; i < SIZE; ++i)
+    {
+      fprintf (fp, "%20d", i);
+    }
+  fprintf (fp, "\n");
+
+  fprintf (fp, "%3s%3s", "#", "");
+  fprintf (fp, "%20s", "--------------------");
+  for (i = 0; i < SIZE; ++i)
+    {
+      fprintf (fp, "%20s", "--------------------");
+    }
+  fprintf (fp, "\n");
+
+  for (i = 0; i < SIZE_HIGH_RES; ++i)
+    {
+      fprintf (fp, "%6s", "");
+      fprintf (fp, "%20.4e", high_res_ordinate[i]);
+      for (j = 0; j < SIZE; ++j)
+	{
+	  fprintf (fp, "%20.4e",
+		   rhs[j] * chebyshev_poly_1 (j, high_res_ordinate[i]));
+	}
+      fprintf (fp, "\n");
+    }
+
+  fclose (fp);
 
   return 0;
 }
