@@ -164,7 +164,7 @@ main ()
   if (fp == NULL)
     {
       fprintf (stderr, "Can't open file '%s' for writing!\n",
-	       solutions_filename);
+	       basis_functions_filename);
       return -1;
     }
 
