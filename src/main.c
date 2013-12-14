@@ -197,12 +197,13 @@ main ()
     }
 
   fclose (fp);
-  printf ("Saved basis function data to file '%s'.\n", basis_functions_filename);
+  printf ("Saved basis function data to file '%s'.\n",
+	  basis_functions_filename);
 
   /* Write the basis functions to a file. */
   /* TODO: make the file name an adjustable parameter. */
 
-  fp = fopen(coeffs_filename, "w");
+  fp = fopen (coeffs_filename, "w");
   if (fp == NULL)
     {
       fprintf (stderr, "Can't open file '%s' for writing!\n",
@@ -211,9 +212,9 @@ main ()
     }
 
   for (i = 0; i < SIZE; ++i)
-  {
+    {
       fprintf (fp, "%10d %20.4e\n", i, rhs[i]);
-  }
+    }
 
   fclose (fp);
   printf ("Saved coefficient data to file '%s'.\n", coeffs_filename);
