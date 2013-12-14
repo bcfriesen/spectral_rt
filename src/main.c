@@ -35,6 +35,7 @@ main ()
   FILE *fp;
   const char solutions_filename[] = "solutions.dat";
   const char basis_functions_filename[] = "basis_functions.dat";
+  const char coeffs_filename[] = "coefficients.dat";
 
   /* Calculate integration points and weights using Gauss-Legendre rules. */
   for (i = 0; i < SIZE; ++i)
@@ -196,6 +197,27 @@ main ()
     }
 
   fclose (fp);
+  printf ("Saved basis function data to file '%s'.\n", basis_functions_filename);
+
+  /* Write the basis functions to a file. */
+  /* TODO: make the file name an adjustable parameter. */
+
+  fp = fopen(coeffs_filename, "w");
+  if (fp == NULL)
+    {
+      fprintf (stderr, "Can't open file '%s' for writing!\n",
+	       coeffs_filename);
+      return -1;
+    }
+
+  for (i = 0; i < SIZE; ++i)
+  {
+      fprintf (fp, "%10d %20.4e\n", i, rhs[i]);
+  }
+
+  fclose (fp);
+  printf ("Saved coefficient data to file '%s'.\n", coeffs_filename);
+
 
   return 0;
 }
