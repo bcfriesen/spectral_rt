@@ -25,5 +25,17 @@ The binary will be placed in build/src/test_galerkin_method. To run it, type
 
 ./src/test_galerkin_method
 
-The output contains 3 columns: the domain points, the exact solution, and the
-numerical solution.
+
+
+The output is contained in 3 files:
+
+    - solutions.dat: contains the exact and numerical solutions of the ODE.
+
+    - basis_functions.dat: contains in separate columns the quantity c_n *
+      T_n(x), where T_n(x) is the nth Chebyshev polynomial of the 1st kind (the
+      basis functions chosen to solve this problem), and c_n is the
+      corresponding coefficient which the Galerkin method calculates. The sum
+      of all of these columns at each ordinate yields the numerical solution to
+      the ODE.
+
+    - coefficients.dat: contains a list of the calculated coefficients c_n.
