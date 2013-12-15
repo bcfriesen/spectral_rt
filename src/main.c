@@ -10,7 +10,7 @@
 #include <approx_result.h>
 
 extern void dgesv_ (int *n, int *nrhs, double *a, int *lda, int *ipiv,
-		    double *b, int *ldb, int *info);
+                    double *b, int *ldb, int *info);
 
 const int SIZE = 10;
 const int SIZE_HIGH_RES = 100;
@@ -48,16 +48,16 @@ main ()
   for (i = 0; i < SIZE; ++i)
     {
       err =
-	gsl_integration_glfixed_point (lower_limit, upper_limit, i,
-				       &integration_points[i],
-				       &integration_weights[i],
-				       integration_table);
+        gsl_integration_glfixed_point (lower_limit, upper_limit, i,
+                                       &integration_points[i],
+                                       &integration_weights[i],
+                                       integration_table);
       if (err != GSL_SUCCESS)
-	{
-	  printf
-	    ("ERROR: could not calculate Gauss-Legendre integration points and weights!\n");
-	  return (-1);
-	}
+        {
+          printf
+            ("ERROR: could not calculate Gauss-Legendre integration points and weights!\n");
+          return (-1);
+        }
     }
   gsl_integration_glfixed_table_free (integration_table);
 
@@ -76,18 +76,18 @@ main ()
     {
       /* Start the column index "i" at 1 instead of 0 because each matrix element contains U_{i-1}. */
       for (i = 1; i < SIZE; ++i)
-	{
-	  total = 0.0;
-	  for (k = 0; k < SIZE; ++k)
-	    {
-	      total =
-		total + integration_weights[k] * chebyshev_poly_1 (j,
-								   integration_points
-								   [k]) *
-		(double) i *chebyshev_poly_2 (i - 1, integration_points[k]);
-	    }
-	  matrix[j][i] = total;
-	}
+        {
+          total = 0.0;
+          for (k = 0; k < SIZE; ++k)
+            {
+              total =
+                total + integration_weights[k] * chebyshev_poly_1 (j,
+                                                                   integration_points
+                                                                   [k]) *
+                (double) i *chebyshev_poly_2 (i - 1, integration_points[k]);
+            }
+          matrix[j][i] = total;
+        }
     }
 
   /* Fill in the rest of the RHS vector. */
@@ -95,13 +95,13 @@ main ()
     {
       total = 0.0;
       for (k = 0; k < SIZE; ++k)
-	{
-	  total =
-	    total + integration_weights[k] * chebyshev_poly_1 (j,
-							       integration_points
-							       [k]) *
-	    integration_points[k];
-	}
+        {
+          total =
+            total + integration_weights[k] * chebyshev_poly_1 (j,
+                                                               integration_points
+                                                               [k]) *
+            integration_points[k];
+        }
       rhs[j] = 2.0 * total;
     }
 
@@ -109,9 +109,9 @@ main ()
   for (j = 0; j < SIZE; ++j)
     {
       for (i = 0; i < SIZE; ++i)
-	{
-	  matrix_transpose[i + SIZE * j] = matrix[i][j];
-	}
+        {
+          matrix_transpose[i + SIZE * j] = matrix[i][j];
+        }
     }
 
   /* Now solve the linear system for the coefficients. The input vector is overwritten with the results. */
@@ -121,8 +121,8 @@ main ()
   if (err != SUCCESS)
     {
       printf
-	("ERROR: LAPACK routine dgesv() failed with the error code: %d\n",
-	 err);
+        ("ERROR: LAPACK routine dgesv() failed with the error code: %d\n",
+         err);
       return -1;
     }
 
@@ -131,9 +131,9 @@ main ()
   for (i = 0; i < SIZE_HIGH_RES; ++i)
     {
       high_res_ordinate[i] =
-	lower_limit + (double) i *(upper_limit -
-				   lower_limit) / (double) (SIZE_HIGH_RES -
-							    1);
+        lower_limit + (double) i *(upper_limit -
+                                   lower_limit) / (double) (SIZE_HIGH_RES -
+                                                            1);
     }
 
   for (i = 0; i < SIZE_HIGH_RES; ++i)
@@ -149,17 +149,17 @@ main ()
   if (fp == NULL)
     {
       fprintf (stderr, "Can't open file '%s' for writing!\n",
-	       solutions_filename);
+               solutions_filename);
       return -1;
     }
   fprintf (fp, "%3s %20s %20s %20s\n", "#", "ORDINATE", "EXACT SOLUTION",
-	   "NUMERICAL SOLUTION");
+           "NUMERICAL SOLUTION");
   fprintf (fp, "%3s %20s %20s %20s\n", "#", "--------", "--------------",
-	   "------------------");
+           "------------------");
   for (i = 0; i < SIZE_HIGH_RES; ++i)
     {
       fprintf (fp, "%3s %20.4e %20.4e %20.4e\n", "   ", high_res_ordinate[i],
-	       exact_solution[i], approx_solution[i]);
+               exact_solution[i], approx_solution[i]);
     }
   fclose (fp);
   printf ("Saved numerical solution to file '%s'.\n", solutions_filename);
@@ -171,7 +171,7 @@ main ()
   if (fp == NULL)
     {
       fprintf (stderr, "Can't open file '%s' for writing!\n",
-	       basis_functions_filename);
+               basis_functions_filename);
       return -1;
     }
 
@@ -196,16 +196,16 @@ main ()
       fprintf (fp, "%6s", "");
       fprintf (fp, "%20.4e", high_res_ordinate[i]);
       for (j = 0; j < SIZE; ++j)
-	{
-	  fprintf (fp, "%20.4e",
-		   rhs[j] * chebyshev_poly_1 (j, high_res_ordinate[i]));
-	}
+        {
+          fprintf (fp, "%20.4e",
+                   rhs[j] * chebyshev_poly_1 (j, high_res_ordinate[i]));
+        }
       fprintf (fp, "\n");
     }
 
   fclose (fp);
   printf ("Saved basis function data to file '%s'.\n",
-	  basis_functions_filename);
+          basis_functions_filename);
 
   /* Write the basis functions to a file. */
   /* TODO: make the file name an adjustable parameter. */
@@ -214,7 +214,7 @@ main ()
   if (fp == NULL)
     {
       fprintf (stderr, "Can't open file '%s' for writing!\n",
-	       coeffs_filename);
+               coeffs_filename);
       return -1;
     }
 
