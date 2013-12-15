@@ -13,7 +13,6 @@ extern void dgesv_ (int *n, int *nrhs, double *a, int *lda, int *ipiv,
 		    double *b, int *ldb, int *info);
 
 const int SIZE = 10;
-
 const int SIZE_HIGH_RES = 100;
 
 int
