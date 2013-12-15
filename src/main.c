@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <assert.h>
 
 #include <gsl/gsl_integration.h>
 #include <gsl/gsl_errno.h>
@@ -39,6 +40,10 @@ main ()
   const char solutions_filename[] = "solutions.dat";
   const char basis_functions_filename[] = "basis_functions.dat";
   const char coeffs_filename[] = "coefficients.dat";
+
+  /* Sanity checks for grid sizes. */
+  assert(SIZE > 0);
+  assert(SIZE_HIGH_RES > 0);
 
   /* Calculate integration points and weights using Gauss-Legendre rules. */
   for (i = 0; i < SIZE; ++i)
