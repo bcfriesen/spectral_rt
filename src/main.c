@@ -41,8 +41,8 @@ main ()
   const char coeffs_filename[] = "coefficients.dat";
 
   /* Sanity checks for grid sizes. */
-  assert(SIZE > 0);
-  assert(SIZE_HIGH_RES > 0);
+  assert (SIZE > 0);
+  assert (SIZE_HIGH_RES > 0);
 
   /* Calculate integration points and weights using Gauss-Legendre rules. */
   for (i = 0; i < SIZE; ++i)
