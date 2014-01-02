@@ -13,8 +13,6 @@
 #include "cctk_Parameters.h"
 #include "cctk_Arguments.h"
 
-static const char *rcsid = "$Header$";
-
 void Galerkin_InitialData(CCTK_ARGUMENTS);
 
 

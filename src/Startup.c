@@ -10,8 +10,6 @@
 
 #include "cctk.h"
 
-static const char *rcsid = "$Header$";
-
 int Galerkin_Startup(void);
 
  /*@@
