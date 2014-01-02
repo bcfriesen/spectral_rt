@@ -1,0 +1,11 @@
+STORAGE: spec_coeff[1]
+
+schedule Galerkin_Startup at STARTUP
+{
+  LANG: C
+} "Register Galerkin method banner"
+
+schedule Galerkin_InitialData at CCTK_INITIAL
+{
+  LANG:          C
+} "Initial data spectral method radiative transfer"

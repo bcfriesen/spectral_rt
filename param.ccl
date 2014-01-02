@@ -1,0 +1,4 @@
+INT num_basis_funcs "Number of basis functions to use to represent solution"
+{
+    1:* :: "Must have at least one basis function."
+} 10

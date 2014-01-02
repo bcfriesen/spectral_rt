@@ -1,0 +1,9 @@
+implements: spectral_method
+inherits: grid
+
+public:
+
+cctk_real spec_coeff type=ARRAY dim=1 size=num_basis_funcs
+{
+  sc
+} "Spectral coefficients"
