@@ -15,8 +15,6 @@
 
 static const char *rcsid = "$Header$";
 
-CCTK_FILEVERSION(SpectralRT_Galerkin_InitialData_c)
-
 void Galerkin_InitialData(CCTK_ARGUMENTS);
 
 
