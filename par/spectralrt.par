@@ -1,33 +1,25 @@
 !DESC "Galerkin method for spectral radiative transfer in 1D"
 
-ActiveThorns = "coordbase localreduce symbase pugh pughslab pughreduce ioutil ioascii iobasic cartgrid3d boundary galerkin"
+ActiveThorns = "coordbase localreduce symbase pugh pughslab pughreduce ioutil ioascii iobasic cartgrid1d boundary galerkin"
 
 
 cactus::cctk_itlast             = 0
 
-driver::local_nx                = 100
-driver::local_ny                = 1
-driver::local_nz                = 1
+driver::global_nx                = 100
 
-grid::type                      = "ByRange"
-grid::domain                    = "full"
-grid::xmin                      = -1.0
-grid::xmax                      =  1.0
-grid::ymin                      =  0.0
-grid::ymax                      =  0.0
-grid::zmin                      =  0.0
-grid::zmax                      =  0.0
+grid1d::xmin = -1.0
+grid1d::xmax = +1.0
 
 spectral_method::num_basis_funcs = 15
+spectral_method::integration_type = "trapezoid"
 
 IO::out_dir                     = "spectralrt"
 
 IOBasic::outInfo_every          = 1
-IOBasic::outInfo_vars           = "spectral_method::spec_coeff"
-IOBasic::outScalar_every        = 1
-IOBasic::outScalar_vars         = "spectral_method::spec_coeff"
-IOBasic::outScalar_style        = "gnuplot"
+IOBasic::outInfo_vars           = "spectral_method::spec_coeff
+                                   spectral_method::integration_weights"
 
 IOASCII::out1D_every            = 1
-IOASCII::out1D_vars             = "spectral_method::spec_coeff"
+IOASCII::out1D_vars             = "spectral_method::spec_coeff
+                                   spectral_method::integration_weights"
 IOASCII::out1D_style            = "gnuplot f(x)"

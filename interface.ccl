@@ -1,5 +1,5 @@
 implements: spectral_method
-inherits: grid
+inherits: grid1d
 
 public:
 
@@ -7,3 +7,8 @@ cctk_real spec_coeff type=ARRAY dim=1 size=num_basis_funcs
 {
   sc
 } "Spectral coefficients"
+
+cctk_real integration_weights type=GF dim=1 TAGS='COORDSYSTEM="cart1d"'
+{
+  int_weights
+} "Weights for integrating trial functions to determine spectral coefficients"

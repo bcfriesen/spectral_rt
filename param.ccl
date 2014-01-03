@@ -1,4 +1,9 @@
-INT num_basis_funcs "Number of basis functions to use to represent solution"
+CCTK_INT num_basis_funcs "Number of basis functions to use to represent solution"
 {
     1:* :: "Must have at least one basis function."
 } 10
+
+KEYWORD integration_type "Type of integration to use to calculate weights"
+{
+    "trapezoid" :: "Trapezoid method"
+} "trapezoid"

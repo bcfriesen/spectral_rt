@@ -1,6 +1,1 @@
-# Source files in this directory
-SRCS = Startup.c InitialData.c
-
-# Subdirectories containing source files
-SUBDIRS = 
-
+SRCS = SetupCoords.c Startup.c InitialData.c Calculate_Integration_Weights.c
