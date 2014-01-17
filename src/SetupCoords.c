@@ -33,7 +33,7 @@ void SetupCoords(CCTK_ARGUMENTS)
     ierr = Util_TableSetReal(coord_handle, -1.0, "COMPMIN");
     ierr = Util_TableSetReal(coord_handle, +1.0, "PHYSICALMAX");
     ierr = Util_TableSetReal(coord_handle, +1.0, "COMPMAX");
-    ierr = Util_TableSetString(coord_handle, "uniform", "TYPE");
+    ierr = Util_TableSetString(coord_handle, "nonuniform", "TYPE");
     ierr = Util_TableSetString(coord_handle, "no", "TIMEDEPENDENT");
     ierr = Util_TableSetString(coord_handle, "CCTK_REAL", "DATATYPE");
     ierr = Util_TableSetInt(coord_handle, varindex, "GAINDEX");
