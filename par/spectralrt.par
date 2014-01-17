@@ -11,15 +11,12 @@ spectral_method::xmin = -1.0
 spectral_method::xmax = +1.0
 
 spectral_method::num_basis_funcs = 15
-spectral_method::integration_type = "trapezoid"
 
 IO::out_dir                     = "spectralrt"
 
 IOBasic::outInfo_every          = 1
-IOBasic::outInfo_vars           = "spectral_method::spec_coeff
-                                   spectral_method::integration_weights"
+IOBasic::outInfo_vars           = "spectral_method::spec_coeff"
 
 IOASCII::out1D_every            = 1
-IOASCII::out1D_vars             = "spectral_method::spec_coeff
-                                   spectral_method::integration_weights"
+IOASCII::out1D_vars             = "spectral_method::spec_coeff"
 IOASCII::out1D_style            = "gnuplot f(x)"

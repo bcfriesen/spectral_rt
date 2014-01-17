@@ -1,4 +1,4 @@
-STORAGE: spec_coeff integration_weights coordinates
+STORAGE: spec_coeff coordinates
 
 schedule Galerkin_Startup at STARTUP
 {
@@ -19,8 +19,3 @@ schedule SetupCoords as SpatialCoordinates at CCTK_BASEGRID
 {
   LANG:C
 } "Set up Gauss-Lobatto grid for doing psuedospectral collocation stuff"
-
-schedule Calculate_Integration_Weights at CCTK_BASEGRID after SpatialCoordinates
-{
-  LANG: C
-} "Calculate weights for integrating trial functions to determine spectral coefficients"

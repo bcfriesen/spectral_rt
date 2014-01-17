@@ -15,11 +15,6 @@ cctk_real spec_coeff type=ARRAY dim=1 size=num_basis_funcs
   sc
 } "Spectral coefficients"
 
-cctk_real integration_weights type=GF dim=1 TAGS='COORDSYSTEM="cart1d"'
-{
-  int_weights
-} "Weights for integrating trial functions to determine spectral coefficients"
-
 CCTK_INT FUNCTION Coord_SystemRegister   \
   (CCTK_POINTER_TO_CONST IN GH,          \
    CCTK_INT IN dim,                      \
