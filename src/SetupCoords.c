@@ -11,7 +11,7 @@ void SetupCoords(CCTK_ARGUMENTS)
 
     int i;
     int status;
-    int gsh[3];
+    int gsh[1];
     double pi;
     CCTK_INT coord_handle, varindex, ierr;
 
