@@ -1,9 +1,14 @@
-STORAGE: spec_coeff integration_weights
+STORAGE: spec_coeff integration_weights coordinates
 
 schedule Galerkin_Startup at STARTUP
 {
   LANG: C
 } "Register Galerkin method banner"
+
+schedule Cart1D_RegisterCoordinates at CCTK_WRAGH
+{
+  LANG:C
+} "Register coordinates for the Cartesian grid"
 
 schedule Galerkin_InitialData at CCTK_INITIAL
 {

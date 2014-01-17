@@ -15,10 +15,10 @@ void SetupCoords(CCTK_ARGUMENTS)
     double pi;
     CCTK_INT coord_handle, varindex, ierr;
 
-    /* Get the array bounds for the grid functions. Since the 'grid1d'
-     * implementation only provides a 1-D Cartesian grid, we'll only use
-     * gsh[0]. */
-    status = CCTK_GroupgshVN(cctkGH, 1, gsh, "grid1d::x");
+    /* Get the array bounds for the grid functions. Since this coordinate
+     * implementation implementation only provides a 1-D Cartesian grid, we'll
+     * only use gsh[0]. */
+    status = CCTK_GroupgshVN(cctkGH, 1, gsh, "spectral_method::x");
 
     pi = acos(-1.0);
 
@@ -28,7 +28,7 @@ void SetupCoords(CCTK_ARGUMENTS)
     }
 
     coord_handle = Coord_CoordHandle(cctkGH, "x", "cart1d");
-    varindex = CCTK_VarIndex("grid1d::x");
+    varindex = CCTK_VarIndex("spectral_method::x");
     ierr = Util_TableSetReal(coord_handle, -1.0, "PHYSICALMIN");
     ierr = Util_TableSetReal(coord_handle, -1.0, "COMPMIN");
     ierr = Util_TableSetReal(coord_handle, +1.0, "PHYSICALMAX");

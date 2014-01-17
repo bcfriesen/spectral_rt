@@ -11,7 +11,7 @@ void Calculate_Integration_Weights(CCTK_ARGUMENTS)
   int status;
   int gsh[3];
 
-  status = CCTK_GroupgshVN(cctkGH, 1, gsh, "grid1d::x");
+  status = CCTK_GroupgshVN(cctkGH, 1, gsh, "spectral_method::x");
 
   if (CCTK_EQUALS(integration_type,"trapezoid"))
   {

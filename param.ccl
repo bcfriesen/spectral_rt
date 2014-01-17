@@ -7,3 +7,13 @@ KEYWORD integration_type "Type of integration to use to calculate weights"
 {
     "trapezoid" :: "Trapezoid method"
 } "trapezoid"
+
+CCTK_REAL xmin "Coordinate minimum in x-direction"
+{
+  : :: "Anything"
+} -1.0
+
+CCTK_REAL xmax "Coordinate maximum in x-direction"
+{
+  : :: "Anything"
+} 1.0

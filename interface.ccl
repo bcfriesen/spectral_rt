@@ -1,7 +1,14 @@
 implements: spectral_method
-inherits: grid1d
+inherits: coordbase
+
+uses include header: CoordBase.h
 
 public:
+
+CCTK_REAL coordinates type=GF dim=1
+{
+  x
+} "1D Cartesian grid coordinates"
 
 cctk_real spec_coeff type=ARRAY dim=1 size=num_basis_funcs
 {
@@ -12,3 +19,37 @@ cctk_real integration_weights type=GF dim=1 TAGS='COORDSYSTEM="cart1d"'
 {
   int_weights
 } "Weights for integrating trial functions to determine spectral coefficients"
+
+CCTK_INT FUNCTION Coord_SystemRegister   \
+  (CCTK_POINTER_TO_CONST IN GH,          \
+   CCTK_INT IN dim,                      \
+   CCTK_STRING IN systemname)
+REQUIRES FUNCTION Coord_SystemRegister
+
+CCTK_INT FUNCTION Coord_SystemHandle  \
+  (CCTK_POINTER_TO_CONST IN GH,       \
+   CCTK_STRING IN systemname)
+REQUIRES FUNCTION Coord_SystemHandle
+
+CCTK_INT FUNCTION Coord_CoordRegister  \
+  (CCTK_POINTER_TO_CONST IN GH,        \
+   CCTK_INT IN systemhandle,           \
+   CCTK_INT IN direction,              \
+   CCTK_STRING IN coordname)
+REQUIRES FUNCTION Coord_CoordRegister
+
+CCTK_INT FUNCTION Coord_CoordHandle    \
+  (CCTK_POINTER_TO_CONST IN GH,        \
+   CCTK_STRING IN coordname,           \
+   CCTK_STRING IN systemname)
+REQUIRES FUNCTION Coord_CoordHandle
+
+CCTK_INT FUNCTION Coord_GroupSystem  \
+  (CCTK_POINTER_TO_CONST IN GH,      \
+   CCTK_STRING IN groupname)
+REQUIRES FUNCTION Coord_GroupSystem
+
+CCTK_INT FUNCTION Coord_SetDefaultSystem  \
+  (CCTK_POINTER_TO_CONST IN GH,           \
+   CCTK_STRING IN systemname)
+REQUIRES FUNCTION Coord_SetDefaultSystem

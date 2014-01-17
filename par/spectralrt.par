@@ -1,14 +1,14 @@
 !DESC "Galerkin method for spectral radiative transfer in 1D"
 
-ActiveThorns = "coordbase localreduce symbase pugh pughslab pughreduce ioutil ioascii iobasic cartgrid1d boundary galerkin"
+ActiveThorns = "coordbase localreduce symbase pugh pughslab pughreduce ioutil ioascii iobasic boundary galerkin"
 
 
 cactus::cctk_itlast             = 0
 
 driver::global_nx                = 100
 
-grid1d::xmin = -1.0
-grid1d::xmax = +1.0
+spectral_method::xmin = -1.0
+spectral_method::xmax = +1.0
 
 spectral_method::num_basis_funcs = 15
 spectral_method::integration_type = "trapezoid"

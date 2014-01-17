@@ -1,1 +1,1 @@
-SRCS = SetupCoords.c Startup.c InitialData.c Calculate_Integration_Weights.c
+SRCS = CartGrid1D.c SetupCoords.c Startup.c InitialData.c Calculate_Integration_Weights.c
