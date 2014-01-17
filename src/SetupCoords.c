@@ -15,6 +15,9 @@ void SetupCoords(CCTK_ARGUMENTS)
     double pi;
     CCTK_INT coord_handle, varindex, ierr;
 
+    /* Get the array bounds for the grid functions. Since the 'grid1d'
+     * implementation only provides a 1-D Cartesian grid, we'll only use
+     * gsh[0]. */
     status = CCTK_GroupgshVN(cctkGH, 1, gsh, "grid1d::x");
 
     pi = acos(-1.0);
