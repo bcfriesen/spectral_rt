@@ -1,1 +1,1 @@
-SRCS = CartGrid1D.c SetupCoords.c Startup.c InitialData.c ChebyshevPolynomials.c
+SRCS = CartGrid1D.c SetupCoords.c Startup.c InitialData.c ChebyshevPolynomials.c GaussLobatto.c

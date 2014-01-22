@@ -4,6 +4,8 @@
 #include "cctk_Parameters.h"
 #include "cctk_Arguments.h"
 
+#include <GaussLobatto.h>
+
 void SetupCoords(CCTK_ARGUMENTS)
 {
     DECLARE_CCTK_ARGUMENTS
@@ -24,7 +26,7 @@ void SetupCoords(CCTK_ARGUMENTS)
 
     for (i=0; i<gsh[0]; i++)
     {
-        x[i] = cos(pi * (double)i / (double)gsh[0]);
+        x[i] = gauss_lobatto_point(i, gsh[0]);
     }
 
     coord_handle = Coord_CoordHandle(cctkGH, "x", "cart1d");
