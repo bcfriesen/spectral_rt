@@ -14,15 +14,12 @@ void SetupCoords(CCTK_ARGUMENTS)
     int i;
     int status;
     int gsh[1];
-    double pi;
     CCTK_INT coord_handle, varindex, ierr;
 
     /* Get the array bounds for the grid functions. Since this coordinate
      * implementation implementation only provides a 1-D Cartesian grid, we'll
      * only use gsh[0]. */
     status = CCTK_GroupgshVN(cctkGH, 1, gsh, "spectral_method::x");
-
-    pi = acos(-1.0);
 
     for (i=0; i<gsh[0]; i++)
     {
