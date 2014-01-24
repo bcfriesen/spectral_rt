@@ -4,6 +4,8 @@
 #include "cctk_Parameters.h"
 #include "cctk_Arguments.h"
 
+#include <GaussLobatto.h>
+
 void SetupCoords(CCTK_ARGUMENTS)
 {
     DECLARE_CCTK_ARGUMENTS
@@ -12,7 +14,6 @@ void SetupCoords(CCTK_ARGUMENTS)
     int i;
     int status;
     int gsh[1];
-    double pi;
     CCTK_INT coord_handle, varindex, ierr;
 
     /* Get the array bounds for the grid functions. Since this coordinate
@@ -20,11 +21,9 @@ void SetupCoords(CCTK_ARGUMENTS)
      * only use gsh[0]. */
     status = CCTK_GroupgshVN(cctkGH, 1, gsh, "spectral_method::x");
 
-    pi = acos(-1.0);
-
     for (i=0; i<gsh[0]; i++)
     {
-        x[i] = cos(pi * (double)i / (double)gsh[0]);
+        x[i] = gauss_lobatto_point(i, gsh[0]);
     }
 
     coord_handle = Coord_CoordHandle(cctkGH, "x", "cart1d");
