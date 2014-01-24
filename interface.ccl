@@ -10,7 +10,7 @@ CCTK_REAL coordinates type=GF dim=1
   x
 } "1D Cartesian grid coordinates"
 
-cctk_real spec_coeff type=ARRAY dim=1 size=num_basis_funcs
+CCTK_REAL spec_coeff type=GF dim=1
 {
   sc
 } "Spectral coefficients"

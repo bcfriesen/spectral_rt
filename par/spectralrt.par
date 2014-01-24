@@ -1,6 +1,6 @@
 !DESC "Galerkin method for spectral radiative transfer in 1D"
 
-ActiveThorns = "coordbase localreduce symbase pugh pughslab pughreduce ioutil ioascii iobasic boundary galerkin"
+ActiveThorns = "coordbase localreduce symbase pugh pughslab pughreduce ioutil ioascii iobasic boundary galerkin lapack blas"
 
 
 cactus::cctk_itlast             = 0

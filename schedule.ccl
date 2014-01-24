@@ -10,7 +10,7 @@ schedule Cart1D_RegisterCoordinates at CCTK_WRAGH
   LANG:C
 } "Register coordinates for the Cartesian grid"
 
-schedule Galerkin_InitialData at CCTK_INITIAL
+schedule Galerkin_1D_1st_order_ODE at CCTK_INITIAL
 {
   LANG: C
 } "Initial data spectral method radiative transfer"
