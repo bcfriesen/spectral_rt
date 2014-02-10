@@ -1,8 +1,4 @@
-set (CMAKE_C_FLAGS "-Wall")
-set (CMAKE_EXE_LINKER_FLAGS "-Wall")
-
-include_directories("/usr/local/include"
-                    ".")
+include_directories(".")
 
 set (test_spectral_rt_SOURCES
      c_bar.c
@@ -13,4 +9,4 @@ set (test_spectral_rt_SOURCES
 
 ADD_EXECUTABLE(test_spectral_rt ${test_spectral_rt_SOURCES})
 
-target_link_libraries(test_spectral_rt m lapack blas fftw3)
+target_link_libraries(test_spectral_rt m fftw3)
