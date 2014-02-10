@@ -1,6 +1,3 @@
-set (CMAKE_C_FLAGS "-Wall")
-set (CMAKE_EXE_LINKER_FLAGS "-Wall")
-
 include_directories("/usr/local/include"
                     ".")
 
