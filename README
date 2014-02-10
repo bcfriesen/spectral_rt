@@ -17,9 +17,11 @@ The software required to compile and run this code consist of the following:
   - CMake
   - the Fastest Fourier Transform in the West (FFTW) library
 
+If your include directories are in non-standard directories you must specify
+them using the environment variable CMAKE_INCLUDE_PATH.
 
-If you have those, perform the following, from the top level of the code
-directory.
+Once you have done all of this, perform the following, from the top level of
+the code directory.
 
   mkdir build
   cd build

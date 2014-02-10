@@ -1,5 +1,4 @@
-include_directories("/usr/local/include"
-                    ".")
+include_directories(".")
 
 set (test_spectral_rt_SOURCES
      c_bar.c
