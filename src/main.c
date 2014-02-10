@@ -15,7 +15,6 @@ double *grid;
 
 int main () {
   int i;
-  double *D_n;
   double *spec;
   double *spec_deriv;
   double *x_prime;
@@ -34,7 +33,6 @@ int main () {
   spec = malloc(n * sizeof(double));
   spec_deriv = malloc(n * sizeof(double));
   grid = malloc(n * sizeof(double));
-  D_n = malloc(n*n * sizeof(double*));
   x_prime = malloc(n * sizeof(double));
   f_hat_prime = malloc(n * sizeof(double));
   f_hat = malloc(n * sizeof(double));
@@ -106,7 +104,6 @@ int main () {
   }
   printf("done!\n");
 
-  free(D_n);
   free(grid);
   free(spec);
   free(spec_deriv);
