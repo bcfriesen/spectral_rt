@@ -1,9 +1,9 @@
-This code uses the Galerkin spectral method to solve the ordinary differential
-equation
+This code uses the collocation spectral method to solve the ordinary
+differential equation
 
     f'(x) = 2x
 
-over the domain [0, 1], with the initial condition
+over the domain [-1, 1], with the initial condition
 
     f(0) = 0.
 
@@ -11,31 +11,29 @@ The solution is
 
     f(x) = x^2.
 
-To compile this code, you need a C compiler and the CMake package. You also
-need to have the GNU Scientific Library (gsl) installed, along with  BLAS 
-and LAPACK. If you have those, perform the following, from the top level of 
+The software required to compile and run this code consist of the following:
+
+  - a C compiler
+  - CMake
+  - the Fastest Fourier Transform in the West (FFTW) library
+
+If your include directories are in non-standard directories you must specify
+them using the environment variable CMAKE_INCLUDE_PATH.
+
+Once you have done all of this, perform the following, from the top level of
 the code directory.
 
-mkdir build
-cd build
-cmake ..
-make
+  mkdir build
+  cd build
+  cmake ..
+  make
 
-The binary will be placed in build/src/test_galerkin_method. To run it, type
+The binary will be placed in build/src/test_spectral_rt. To run it, type
 
-./src/test_galerkin_method
+  ./src/test_spectral_rt
 
 
 
-The output is contained in 3 files:
+The output is contained in a file called "results.dat". It contains 3 columns:
 
-    - solutions.dat: contains the exact and numerical solutions of the ODE.
-
-    - basis_functions.dat: contains in separate columns the quantity c_n *
-      T_n(x), where T_n(x) is the nth Chebyshev polynomial of the 1st kind (the
-      basis functions chosen to solve this problem), and c_n is the
-      corresponding coefficient which the Galerkin method calculates. The sum
-      of all of these columns at each ordinate yields the numerical solution to
-      the ODE.
-
-    - coefficients.dat: contains a list of the calculated coefficients c_n.
+        [ordinate grid] [exact solution] [numerical solution]
