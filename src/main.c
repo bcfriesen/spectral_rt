@@ -4,6 +4,7 @@
 #include <assert.h>
 
 #include <fftw3.h>
+#include <lapacke.h>
 
 #include <chebyshev_polynomials.h>
 #include <globals.h>
@@ -15,6 +16,7 @@ double *grid;
 
 int main () {
   int i;
+  int j;
   double *spec;
   double *spec_deriv;
   double *x_prime;
@@ -28,6 +30,22 @@ int main () {
   fftw_plan plan;
   double tmp;
   FILE *fp;
+  lapack_int ln, nrhs, lda, *ipiv, ldb, info;
+  double **D_x;
+  double *rhs;
+
+  ln = n;
+  nrhs = 1;
+  lda = n;
+  ldb = n;
+  ipiv = malloc(n * sizeof(lapack_int));
+
+  D_x = malloc(n * sizeof(double *));
+  for (i = 0; i < n; i++) {
+      D_x[i] = malloc(n * sizeof(double));
+  }
+
+  rhs = malloc(n * sizeof(double));
 
   printf("malloc-ing arrays ... ");
   spec = malloc(n * sizeof(double));
@@ -48,8 +66,18 @@ int main () {
   /* Set up ordinate grid using Gauss-Lobatto points. */
   for (i = 0; i < n; i++) {
       grid[i] = gauss_lobatto(i);
+      rhs[i] = 2.0*grid[i];
   }
   printf("done!\n");
+
+  calc_chebyshev_derivative_matrix(grid, D_x);
+
+
+  info = LAPACKE_dgesv(LAPACK_COL_MAJOR, n, nrhs, *D_x, lda, ipiv, rhs, ldb);
+
+  for (i=0; i<n; i++) {
+      printf("%15.4e\n", rhs[i]);
+  }
 
   for (i = 0; i < n; i++) {
       x_prime[i] = grid[i] / (double)c_bar(i);
@@ -97,10 +125,10 @@ int main () {
   printf("Writing results to file ... ");
   /* From F calculate f_n. */
   fp = fopen("results.dat", "w");
-  fprintf(fp, "%1s %15s %15s %15s\n", "#", "x[i]", "exact", "approx");
+  fprintf(fp, "%1s %15s %15s %15s %15s\n", "#", "x[i]", "exact", "approx", "approx2");
   for (i = 0; i < n; i++) {
       f_n[i] = F[i] + F_tilde[0] + pow(-1.0,i)*F_tilde[n-1];
-      fprintf(fp, "%1s %+15.7e %+15.7e %+15.7e\n", "", grid[i], pow(grid[i],2), f_n[i]);
+      fprintf(fp, "%1s %+15.7e %+15.7e %+15.7e %+15.7e\n", "", grid[i], pow(grid[i],2), f_n[i], rhs[i]);
   }
   printf("done!\n");
 
@@ -117,6 +145,12 @@ int main () {
   free(f_n);
   fftw_free(plan);
   fclose(fp);
+  free(ipiv);
+  for (i = 0; i < n; i++) {
+      free(D_x[i]);
+  }
+  free(D_x);
+  free(rhs);
 
   return 0;
 }
