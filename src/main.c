@@ -7,7 +7,6 @@
 
 #include <chebyshev_polynomials.h>
 #include <globals.h>
-#include <gauss_lobatto.h>
 
 const int n = 128;
 double *grid;
@@ -28,6 +27,9 @@ int main () {
   double tmp;
   FILE *fp;
   double *c_bar;
+  double pi;
+
+  pi = acos(-1.0);
 
   printf("malloc-ing arrays ... ");
   spec = malloc(n * sizeof(double));
@@ -48,7 +50,7 @@ int main () {
   printf("setting up Gauss-Lobatto grid ... ");
   /* Set up ordinate grid using Gauss-Lobatto points. */
   for (i = 0; i < n; i++) {
-      grid[i] = gauss_lobatto(i);
+      grid[i] = cos(pi*(double)i/(double)(n-1));
   }
   printf("done!\n");
 
