@@ -1,7 +1,6 @@
 include_directories(".")
 
 set (test_spectral_rt_SOURCES
-     c_bar.c
      chebyshev_polynomials.c
      gauss_lobatto.c
      main.c

@@ -8,7 +8,6 @@
 #include <chebyshev_polynomials.h>
 #include <globals.h>
 #include <gauss_lobatto.h>
-#include <c_bar.h>
 
 const int n = 128;
 double *grid;
@@ -28,6 +27,7 @@ int main () {
   fftw_plan plan;
   double tmp;
   FILE *fp;
+  double *c_bar;
 
   printf("malloc-ing arrays ... ");
   spec = malloc(n * sizeof(double));
@@ -41,6 +41,7 @@ int main () {
   F_tilde = malloc(n * sizeof(double));
   F = malloc(n * sizeof(double));
   f_n = malloc(n * sizeof(double));
+  c_bar = malloc(n * sizeof(double));
   printf("done!\n");
 
 
@@ -51,8 +52,15 @@ int main () {
   }
   printf("done!\n");
 
+  /* Fill in c_bar array. */
+  c_bar[0] = 2.0;
+  c_bar[n-1] = 2.0;
+  for (i = 1; i < n-1; i++) {
+    c_bar[i] = 1.0;
+  }
+
   for (i = 0; i < n; i++) {
-      x_prime[i] = grid[i] / (double)c_bar(i);
+      x_prime[i] = grid[i] / c_bar[i];
   }
 
   /* This FFT gives us f_hat_prime. */
@@ -68,13 +76,13 @@ int main () {
 
   /* From f_hat calculate f_tilde_prime. */
   for (i = 0; i < n; i++) {
-      f_tilde_prime[i] = (2.0 * f_hat[i]) / ((double)(n-1) * (double)c_bar(i));
+      f_tilde_prime[i] = (2.0 * f_hat[i]) / ((double)(n-1) * c_bar[i]);
   }
 
   /* From f_tilde_prime calcualte all f_tilde except f_tilde[0]. */
-  f_tilde[n-1] = (1.0 / (double)(2*(n-1))) * (double)c_bar(n-2)*f_tilde_prime[n-2]; /* Do this one separately because it goes "out of bounds" of f_tilde_prime. */
+  f_tilde[n-1] = (1.0 / (double)(2*(n-1))) * c_bar[n-2]*f_tilde_prime[n-2]; /* Do this one separately because it goes "out of bounds" of f_tilde_prime. */
   for (i = n-2; i >= 1; i--) {
-      f_tilde[i] = (1.0 / (double)(2*i)) * ((double)c_bar(i-1)*f_tilde_prime[i-1] - f_tilde_prime[i+1]);
+      f_tilde[i] = (1.0 / (double)(2*i)) * (c_bar[i-1]*f_tilde_prime[i-1] - f_tilde_prime[i+1]);
   }
   /* Calculate f_tilde[0] by using the boundary condition. */
   tmp = 0.0;
@@ -117,6 +125,7 @@ int main () {
   free(f_n);
   fftw_free(plan);
   fclose(fp);
+  free(c_bar);
 
   return 0;
 }
